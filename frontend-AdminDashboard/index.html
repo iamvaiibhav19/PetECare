@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--========== BOX ICONS ==========-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+        <link
+        href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+        rel="stylesheet"
+        />
+
+        <!--========== BOOTSTRAP ==========-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+        <!--========== CSS ==========-->
+        <link rel="stylesheet" href="assets/css/styles.css">
+
+        <title>PetECare Admin</title>
+        <style>
+            @media only screen and (max-width:800px) {
+                #no-more-tables tbody,
+                #no-more-tables tr,
+                #no-more-tables td {
+                    display: block;
+                }
+                #no-more-tables thead tr {
+                    position: absolute;
+                    top: -9999px;
+                    left: -9999px;
+                }
+                #no-more-tables td {
+                    position: relative;
+                    padding-left: 50%;
+                    border: none;
+                    border-bottom: 1px solid #eee;
+                }
+                #no-more-tables td:before {
+                    content: attr(data-title);
+                    position: absolute;
+                    left: 6px;
+                    font-weight: bold;
+                }
+                #no-more-tables tr {
+                    border-bottom: 1px solid #ccc;
+                }
+            }
+        </style>
+
+        <script>
+
+            // if token is not set, redirect to login page when page is loaded
+
+            document.addEventListener('DOMContentLoaded', function() {
+                if(localStorage.getItem('token') == null) {
+                    window.location.href = 'http://localhost:5500/loginSignup/index.html';
+                }
+            });
+            
+        </script>  
+
+
+    </head>
+    <body>
+        <!--========== HEADER ==========-->
+        <header class="header">
+            <div class="header__container">
+                <img src="assets/img/icons8-user-64.png"  alt="" class="header__img">
+
+                <a href="#" class="header__logo" style="font-size: 1.3rem; font-weight: 600;">PetECare</a>
+    
+                <div class="header__search">
+                    <input type="search" placeholder="Search" class="header__input">
+                    <i class='bx bx-search header__icon'></i>
+                </div>
+    
+                <div class="header__toggle">
+                    <i class='bx bx-menu' id="header-toggle"></i>
+                </div>
+            </div>
+        </header>
+
+        <!--========== NAV ==========-->
+        <div class="nav" id="navbar">
+            <nav class="nav__container">
+                <div>
+                    <a href="#" class="nav__link nav__logo">
+                        <i class='bx bxs-disc nav__icon' style="color:#6923D0" ></i>
+                        <span class="nav__logo-name" style="font-size: 1.3rem;">PetECare</span>
+                    </a>
+    
+                    <div class="nav__list">
+                       
+    
+                        <div class="nav__items">
+                            <h3 class="nav__subtitle">Dashboard</h3>
+
+                            <a href="#" id="home" class="nav__link active">
+                                <i class='bx bx-home nav__icon' ></i>
+                                <span class="nav__name">Home</span>
+                            </a>
+    
+                            <div id="appoinments" class="nav__dropdown">
+                                <a href="#" class="nav__link">
+                                    <i class='bx bx-bell nav__icon' ></i>
+                                    <span class="nav__name">Appointments</span>
+                                    <!-- <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i> -->
+                                </a>
+
+                                
+
+                            </div>
+
+                            <a href="#" id="petDetailsRedirect" class="nav__link">
+                                <i class='bx bx-compass nav__icon' ></i>
+                                <span class="nav__name">Pet Details</span>
+                            </a>
+                            <a href="#" id="servicesRedirect" class="nav__link">
+                                <i class='bx bx-bookmark nav__icon' ></i>
+                                <span class="nav__name">Services</span>
+                            </a>
+                        </div>
+
+                        <div class="nav__items">
+                            <h3 class="nav__subtitle">Profile</h3>
+    
+                           
+                            
+                            <div class="nav__dropdown">
+                                <a href="#" class="nav__link">
+                                    <i class='bx bx-user nav__icon' ></i>
+                                    <span class="nav__name">Profile</span>
+                                    <i class='bx bx-chevron-down nav__icon nav__dropdown-icon'></i>
+                                </a>
+
+                                <div class="nav__dropdown-collapse">
+                                    <div class="nav__dropdown-content">
+                                        <a href="#" class="nav__dropdown-item">Edit Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <a href="#" class="nav__link">
+                                <i class='bx bx-message-rounded nav__icon' ></i>
+                                <span class="nav__name">Messages</span>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+
+                <a id="logout" href="#" class="nav__link nav__logout">
+                    <i class='bx bx-log-out nav__icon' ></i>
+                    <span class="nav__name">Log Out</span>
+                </a>
+            </nav>
+        </div>
+
+        <!--========== CONTENTS ==========-->
+        <main id="dashboard">
+           
+            <!---========== HOME ==========-->
+            <div class="head-title" style="margin-bottom: 7px;">
+                <div class="left">
+                  <h1>Home</h1>
+                  <ul class="breadcrumb">
+                    <li>
+                      <a href="#" style="color:rgb(138, 132, 132)">Dashboard</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                      <a class="active" href="#">Home</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <a href="#" class="btn-download">
+                  <i class="bx bxs-cloud-download"></i>
+                  <span class="text">Download CSV</span>
+                </a> -->
+                <div><button type="button" class="btn btn-primary">Download CSV</button></div>
+            </div>
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="card-body">
+                        <i class='bx bx-check' style="color:#3c91e6;background-color:#cfe8ff ;"></i>
+                        <span class="text">
+                          <h3 class="counter">102</h3>
+                          <p>Pets Registered</p>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="card-body">
+                        <i class="bx bxs-calendar-check" style="color:#ffce26;background-color:#fff2c6;"></i>
+                        <span class="text">
+                          <h3 class="counter">34</h3>
+                          <p>Total Appointments</p>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <i class='bx bxs-capsule' style="background: #7ce87c;
+                        color: green;"></i>
+                        <span class="text">
+                        <h3 class="counter">25</h3>
+                        <p>Total Vaccinations</p>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+              </div>
+              <div class="row" style="margin-top: 20px;">
+                <div class="col-sm-4">
+                    <div class="card">
+                      <div class="card-body">
+                          <i class='bx bxs-home-heart' style="color:#ee9a1b;background-color:#FFEEEE ;"></i>
+                          <span class="text">
+                            <h3 class="counter">102</h3>
+                            <p>Animals Saved</p>
+                          </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="card">
+                      <div class="card-body">
+                          <i class="bx bxs-donate-heart" style="color:#39AEA9;;background-color:#aeeeeb"></i>
+                          <span class="text">
+                            <h3 class="counter">34</h3>
+                            <p>Animals Cured</p>
+                          </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="card">
+                        <div class="card-body">
+                            <i class="bx bxs-group" style="background: yellow;
+                            color: rgb(194, 194, 58);"></i>
+                          <span class="text">
+                            <h3 class="counter">2834</h3>
+                            <p>Contacts Filled</p>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <!---========== HOME ==========-->
+             
+        </main>
+        <section id="Appointment" class="bg-light p-5" style="height: 100vh;">
+            <div class="head-title" style="margin-bottom: 7px;">
+                <div class="left">
+                  <h1>Appointments</h1>
+                  <ul class="breadcrumb">
+                    <li>
+                      <a href="#" style="color:rgb(138, 132, 132)">Dashboard</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                      <a class="active" href="#">Appointments</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <a href="#" class="btn-download">
+                  <i class="bx bxs-cloud-download"></i>
+                  <span class="text">Download CSV</span>
+                </a> -->
+                
+                <div class="tools">
+                    
+                    <input type="search" class="form-control" placeholder="Search" style="width:200px">
+                    <button type="button" class="btn btn-primary">Add New</button>
+                    <button type="button" class="btn btn-primary">Download CSV</button>
+                </div>
+            </div>
+            
+            <div class="table-responsive" id="no-more-tables">
+                <table class="table bg-white">
+                    <thead class="bg-dark text-light">
+                        <tr id="th-style">
+                            <th>Pet/ Parent Name</th>
+                            <th>Breed</th>
+                            <th>Phone No.</th>
+                            <th>Description</th>
+                            <th>Email</th>
+                            <th>Actions</th>                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-title="Pet Name"><div class="d-flex align-items-center">
+                                <img
+                                    src="https://www.loveyourdog.com/wp-content/uploads/2020/02/Goldador.jpg"
+                                    alt=""
+                                    style="width: 45px; height: 45px"
+                                    class="rounded-circle"
+                                    />
+                                <div class="ms-3">
+                                  <p class="fw-bold mb-1">Joy</p>
+                                  <p class="text-muted mb-0">vaibhavmagar1901@gmail.com</p>
+                                </div>
+                              </div></td>
+                            <td data-title="Breed & Age"><p class="fw-bold mb-1">Labrodor Cross</p>
+                                <p class="text-muted mb-0">Age : 2 M </p></td>
+                            <td data-title="Phone No">9876543456</td>
+                            <td data-title="Description">1st Vaccination</td>
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Pet Name"><div class="d-flex align-items-center">
+                                <img
+                                    src="data:image/jpeg;base64,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"
+                                    alt=""
+                                    style="width: 45px; height: 45px"
+                                    class="rounded-circle"
+                                    />
+                                <div class="ms-3">
+                                  <p class="fw-bold mb-1">Rio</p>
+                                  <p class="text-muted mb-0">rio123@gmail.com</p>
+                                </div>
+                              </div></td>
+                            <td data-title="Breed & Age"><p class="fw-bold mb-1">Labrodor Cross</p>
+                                <p class="text-muted mb-0">Age : 5 Y </p></td>
+                            <td data-title="Phone No">9856456237</td>
+                            <td data-title="Description">Deworming</td>
+                            <td data-title="Email">rio123@gmail.com</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Pet Name"><div class="d-flex align-items-center">
+                                <img
+                                    src="data:image/jpeg;base64,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"
+                                    alt=""
+                                    style="width: 45px; height: 45px"
+                                    class="rounded-circle"
+                                    />
+                                <div class="ms-3">
+                                  <p class="fw-bold mb-1">Tommy</p>
+                                  <p class="text-muted mb-0">tommy54@gmail.com</p>
+                                </div>
+                              </div></td>
+                            <td data-title="Breed & Age"><p class="fw-bold mb-1">German Sheperd</p>
+                                <p class="text-muted mb-0">Age : 8 Y </p></td>
+                            <td data-title="Phone No">9589654240</td>
+                            <td data-title="Description">General Treatment</td>
+                            <td data-title="Email">tommy54@gmail.com</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Pet Name"><div class="d-flex align-items-center">
+                                <img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6sgGr6dq34XZEFBt0YWAIuCgAUnrV-beQPg&usqp=CAU"
+                                    alt=""
+                                    style="width: 45px; height: 45px"
+                                    class="rounded-circle"
+                                    />
+                                <div class="ms-3">
+                                  <p class="fw-bold mb-1">Jimmy</p>
+                                  <p class="text-muted mb-0">jimmy87@gmail.com</p>
+                                </div>
+                              </div></td>
+                            <td data-title="Breed & Age"><p class="fw-bold mb-1">RotWhiller</p>
+                                <p class="text-muted mb-0">Age : 3 Y</p></td>
+                            <td data-title="Phone No">9745632178</td>
+                            <td data-title="Description">Seven in One </td>
+                            <td data-title="Email">jimmy98@gmail.com</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Pet Name"><div class="d-flex align-items-center">
+                                <img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTegroTpyUfINWBtC0AYX0v8M4_lcY_WJ7T9g&usqp=CAU"
+                                    alt=""
+                                    style="width: 45px; height: 45px"
+                                    class="rounded-circle"
+                                    />
+                                <div class="ms-3">
+                                  <p class="fw-bold mb-1">Dazzy</p>
+                                  <p class="text-muted mb-0">dazzy19@gmail.com</p>
+                                </div>
+                              </div></td>
+                            <td data-title="Breed & Age"><p class="fw-bold mb-1">Street Dog</p>
+                                <p class="text-muted mb-0">Age : 1 Y </p></td>
+                            <td data-title="Phone No">9876543632</td>
+                            <td data-title="Description">1st Vaccination</td>
+                            <td data-title="Email">dazzy19@gmail.com</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!--========== PET-DETAILS ==========-->
+        <section id="pet-details" class="bg-light p-5" style="height: 100vh;">
+            <div class="head-title" style="margin-bottom: 7px;">
+                <div class="left">
+                  <h1>Pet Details</h1>
+                  <ul class="breadcrumb">
+                    <li>
+                      <a href="#" style="color:rgb(138, 132, 132)">Dashboard</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                      <a class="active" href="#">Pet Details</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <a href="#" class="btn-download">
+                  <i class="bx bxs-cloud-download"></i>
+                  <span class="text">Download CSV</span>
+                </a> -->
+                <div class="tools">
+                    
+                    <input type="search" class="form-control" placeholder="Search" style="width:200px">
+                    <button type="button" class="btn btn-secondary">Add New</button>
+                    <button type="button" class="btn btn-primary">Download CSV</button>
+                </div>
+            </div>
+            <div class="table-responsive" id="no-more-tables">
+                <table class="table bg-white">
+                    <thead class="bg-dark text-light">
+                        <tr id="th-style">
+                            <th>Pet Name</th>
+                            <th>Category</th>
+                            <th>Breed</th>
+                            <th>Age</th>
+
+                            <th>Email</th>
+                            <th>Phone No.</th>
+                            <th>Actions</th>                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-title="Pet Name">Joy</td>
+                            <td data-title="Category">Dog</td>
+                            <td data-title="Breed">Labrodor Cross</td>
+                            <td data-title="Age">1 M</td>                         
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Phone No">9876543456</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Pet Name">Joy</td>
+                            <td data-title="Category">Dog</td>
+                            <td data-title="Breed">Labrodor Cross</td>
+                            <td data-title="Age">1 M</td>                         
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Phone No">9876543456</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Pet Name">Joy</td>
+                            <td data-title="Category">Dog</td>
+                            <td data-title="Breed">Labrodor Cross</td>
+                            <td data-title="Age">1 M</td>                         
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Phone No">9876543456</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Pet Name">Joy</td>
+                            <td data-title="Category">Dog</td>
+                            <td data-title="Breed">Labrodor Cross</td>
+                            <td data-title="Age">1 M</td>                         
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Phone No">9876543456</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Pet Name">Joy</td>
+                            <td data-title="Category">Dog</td>
+                            <td data-title="Breed">Labrodor Cross</td>
+                            <td data-title="Age">1 M</td>                         
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Phone No">9876543456</td>
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/pencil-square.svg" alt="" style="color:blue;">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!--========== SERVICES ==========-->
+        <main id="services" style="height: 300vh;">
+            <div class="head-title" style="margin-bottom: 7px;">
+                <div class="left">
+                  <h1>Services</h1>
+                  <ul class="breadcrumb">
+                    <li>
+                      <a href="#" style="color:rgb(138, 132, 132)">Dashboard</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                      <a class="active" href="#">Services</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <a href="#" class="btn-download">
+                  <i class="bx bxs-cloud-download"></i>
+                  <span class="text">Download CSV</span>
+                </a> -->
+                
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div id="card-container" class="card text-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6e9s_tqgMqOPw9ehIM05aIWxGzwytooKtOw&usqp=CAU" alt="">
+                            <div class="card-details">
+                                <h5>
+                                    Vaccinations
+                                </h5>
+                                <p>Have your pets vaccinated at home, without paying any more than you would at a clinic? No car ride, no waiting room, no stress! Our vaccine prices include a full consultation and physical examination.</p>
+                                <button type="button" class="btn btn-success">Edit</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="card-container"  class="card text-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRj5nVfmkX6YZesmI83dHdKHOdBPdV7Q3sUw&usqp=CAU"  alt="">
+                            <div class="card-details">
+                                <h5>
+                                    General Treatment
+                                </h5>
+                                <p>No car ride, no waiting room, no stress! Just give a click on Call Kvet’s. We will fix your appointment with experience veterinary doctor, he will reach at your doorstep to treat your pet.</p>
+                                <button type="button" class="btn btn-success">Edit</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="card-container"  class="card text-center">
+                            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVFRgWFhYZGBgaGhwaGhwcHBgcGBwYHBgaGhwYGhwcIy4lHB4rHxoaJjgmKy8xNTU1GiQ7QDs0Py40NTEBDAwMEA8QHhISHDQkJCE0NDQ0NDQ0MTE0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ9NDQ0NDQ0NDQxNDQ0NP/AABEIAL8BCAMBIgACEQEDEQH/xAAcAAEAAwADAQEAAAAAAAAAAAAAAwQFAQIGBwj/xAA+EAABAwIDBAcGBQMDBQEAAAABAAIRAyEEMUEFElFhBiJxgZGh8BMyUrHB0UJicpLhB6LxFILCFiMzQ7IV/8QAGQEBAQEBAQEAAAAAAAAAAAAAAAIBAwQF/8QAJhEAAgICAgICAgIDAAAAAAAAAAECEQMxEiETQQRRImFCwQUUMv/aAAwDAQACEQMRAD8A+zIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIihrV2tEucGjiSAPNASrgleexnSdjbU2l54+63xNysHF4+tW95x3fhbZvhr3yuMsyjrs6xwylvo9Nj9v0mSG9d3BuQ7XZfNedxm169W29uDg23i7MqsykAu8LhLJKX6PVHFGP7Im0QuXMXYrqTdc6Olkbwi7hEoWfSERF9E+YEREAREQBERAEREAREQBERAEREARFwgCKDEYljBLnADmfkNVk4npEwWY0uPE9Vv38lDnFbZUYSlpG4oK2Mps957W9pAXkcZtas7NxaODer55+azoGf+VylnXpHePx37Z7Ort2g38c/pDnfIQs6v0qb+Cm53MkNHlJXmi4KNzxoubzSejpH48Vvs1sTt6u+wc1g/KL+JnyhZr5cZe4uPFxJPmot9cl65uUpbZ2jCMdIna0KRpVZjlPTRIM7yuQhXQPVUZZyVG5cPqKJz0MO+8ige+6LAfUkRF7z5wREQBERAEREARFwgCzdqbQ3ButguPHIDiVNtDGtpNk3cfdGpP2Xnqryeu+5J8JsFznOukdsWPk7ejl+Pr5+0/tbHyXLdtYj8h7j9CqDdoNJIcQ3rBscZ0VkuaXRquNy9M9Lxx9ond0hrCxaz+77rlvSaoM6bT2OI+YKqVGtNlXfThS8kl7CxQfo1v8AqR+lJo7XfwqeK23iHWBa0flF/Eqqxi4rMi6x5JP2asUE9HDWlx3nEuPEkk+a7VS0BVcRiwwSsfE7QLioqytFvEYqcslEcUs1+KGUwNUbiqY/ECtoWaPtCV3GSzGY+chHCeClFRxzKULL+8u28FSY4DVStrhKN5GhTKkNSFnDE81G7FN4qqMbNF1VdDVWU/aAGqq1NqJTM6Np9YKtUxQWKMa97t1jXPcfwtBcfALe2d0Mxta792g0/F1nftb9SFSg2TKcY7M2vtGEXvNndAMKyDU3qzvzmG/sbAI7ZXCvwnLzo9giIvQeUIiIAiIgCIiA6qrjcW2m2TmbNHE8FblfL/6mU3VHD4WPaOUPYL/uOfNY/omUuMXKro36+OZvF1R4LuEiByA0C8l0p6ShjQGO/E2I5OBXkMZhTMOIPO/zUVPZ4ILSDcGLl37QdZgKZYWldmYf8pCbUa30jUxO3yQ6CN12Y1yiQeK9R0V25/qKL94zVpth35rGHRzhee2X0SL6Y3w5jyNSLHju/deo6OdGqWGlwLnPcILnG0TMBot8157R9Z3s1mMhoAuQLnnqfFdGv4qzUxQFhmsatjG7xgzxUtIxWaNR4zVbE4jq3VHEY8CeyO83PrksHae2OBRIx9E+0saDKxamMOQ7z61UDBUrOhgJ1MAkx2Be12P/AE4e5odXeKQ+FoDnxzdO608hK6xicpTo8a2rPPmfsp2FozP0HkvquC6B4JmbHPPFzj8mwFt4fY2HZ7tCm3sY2fGFfA5eY+LMxQyEnsCs0mVXWZSqO7GPPyC+2NpNGTQOwAKRb40PO/o+O0ti412WHf3gN/8AohX6XRLHH8DGfqeP+Mr6mieOJLzSPmbegWLPvVaQ7C8/8QrVD+nbj7+JEcGs+pd9F9CRbwiS8kvs8ZQ/p3hh776r+1zQP7Wz5rSw/Q3AsuMO1x/OXv8AJxIXoUVcUY5Sfsgw2EZTG6xjWDg1oaPAKwiLSQiIgCIiAIiIAiIgCIiA4Xi+lOFFR1ZnxMBH6g0QfEBe0Xmdts/74kWdTseLmkyPAjxUT1Z0xJSbi/aZ872fsCpiWsf7jIhxINyLHdGvbkvS7N2IyiLNMi2+67r8Dp3LUw21aZZAjfbZzbS0jQjRYW3Ok1GlO9UG9q1pnLKwzUZJOS2Pi/Bx4PVv7f8ARZq1NwnIDRYO2ulrKNgZcdB98gsfCbXfjcTRpUxusfVaxxPvbs7zradQOUH9QG7+Pr7vusLW2yEU2iB3rnGHVs9sprlSIj0tquMboDSYJkkwVq0MUx0B1UNnK1p7ZVv+l2xcLWpV6mIYH7r2sG8THuyQAMzkveso0mjdpUmU252aN48yVfFUcnld0eHbsN9YdR7gNXOFu4aqXDdG8PSIc8uqOHxe7P6RZewxL4Cw8Q7eJsol+Oioty2RVNotb7jACMiBEQoqm3MQY67oXVlM8B26nvOSkZhZBNrfbNQ3J+y+MV6O+G2xVlrnONoIEndMaTx5L6Fs3HMrUw9hBBz5HUFfHNo7UFNtxHWI0y9WW90V285g3v8A1k9YDszHOF2hJrZ58kU9H1JFFRqte0OaZBAIPEHIqSV3PMEVWtjmMElwgZxopKGIY8S1wI5LLNonREWmBERAEREAREQBERAEREAREQBERAcKntDCCo2DmLtOocMj9O9XEQ1OnZ8g6a7CZVxGHd7j6jvZuI58eORWZ0d6LYZxqNeZeHGxMZEgmNcl9D6b4JrabKzWw5tekSb5b27lkLkKp0V2bTe7EyAKjMRUDXD3g114PxNsbFTx/Gjh52vlr6aPIP2DTw1QOY0hwIewg2a5tw5veFo4nDsdiHVWgH/UNZUIz3XOYA5v7gVrba2TX9uwOaDTM9ZpkCBkRmCZ8iqAwbN8xIjwkLhT0z7EnBpSTNXZWFawENYGjMkAXJWiH6ZfNQ0nmBwgfJS0wBzKpdHmbvs6YhzQFmV6Yz1VzaPVcIygfZdG0Rujt+gIRqy06RQp0pyUOKc4MIFiSBbSLnyAW3QwkHl9P8LricGRbmCO+31UuFG80zwHSXZ28z2jbCm3rSTPWJAEAce7isHoxjHtcWz1ZgjRwPDgRdex2tWqUi7caHi4LT7pGZbOl8jz7lg4HBOfXD/YspMZILWmSXHMkwPAc11j/wA0c2vys9Dgdu16M02VCGi4BuADoJyXertqvUPWc53Ik7s8VHV2d1w5o0uDqI19aHgpauDeLNkA5WuDbxC4uUkdFGLKLtoVSTDtOZHNX6G0a1Nm/Tqt3iDBG+e2WG2aYGh14iDqIHoLvth28wtFOJsDIscgQ5twVUW/ZMorSMTZv9RMdRxNNtZ4q0nva1zS1gO64gb7S0AggGYytHNfcV+cNgdG6lTHYdhHV9q1zgbkMad831kNjvX6PXdM80lTOURFpIREQBERAEREBwi6VagaJcQBzWPjekLG2aC8+A880BtovG4rpFVIMEMjgLx2mVk19pYh3/tdB/MRfuhZZSg2fSEXziltHENiKzz2knydKsv6R122Lj+1o78lnJFeNnvkXzyr0qxA/EB/tb9lSrbaxDx1qjhOgJGf6VnNDxs9b02q0/8AS1GOqNY4hrmgkbxcxzXgATJJ3Y714/o70m9i/EPNJ3/eqB7ASIFjM6zcaLNxLJMySdScz4qKhSdrwJ7tE5uqJ/14uak9o3MR0nr1t5pIDSbAAAi+cm66YYHxvKz6FHdIJ1GvafsVqMdMDn5Z/Jcrfs9KSWjXoOkRoEZihJ0XFBtu7yUm42TYZegmzekTuYyq0jiCI5LOqA02huoMtPxDKJ4wfJWqVOCGix1Kz9s0qjqe609dhDhwdEy3vE98Kn0iPdGhgsbvDgRnyTFYovLA3IgOPZH8LzWGxhDtQTYg56rX2O4hp3tLA8rrLsca7M7E4Yl5MHOeUqzg8EACHZm/fl67FdawuPAAW9cUoshxGg14kJovZLhKABIdlaD9PXBWn4QEZXafLXyPmutNlh2DwU/tQfl9vqhLMp2GDKrnHKC0D4nGCXHjAHkVSrYMFz2uNnCRyknI97fBadYCoBJvI8s/GAsja2MBdTawFz3Wa1ubpEBvAXcM7WR6NSdlnoRTBxTi4S5jHAO0nf3ZPAwXL6KsTo9sc0Gy4g1HAb8e6Ikw0xJEk3Oc6ZLbXWKpHnnK3ZyuFyq2IxTGe84Dlr4BVdEVZYUdWq1olxAHEmFi4rbLjZjY5m57gsuq5zjLiSeJ9WXKWVLR2jhk99GxituAWYJPE2HcMz5LhY7aSLl5ZHfwxPX1arWglxAA1NgsbF9IWiRT6x4kED+V5utialc7znOjMCMuQ0C5ZAyjL1C9DkeZQJMTiX1DLzvZ2mw5ASqtXDk33TGlhmrdFtvpmu9SnIsFnIvjRjsZEkyT68EqMgb0xxt6Kt1qJ4N7pPiFTe1wME2WNmpHZrwQYdPgquJZYeV/uuKxLXaxyUjnSOPh5rnZ0opTuyDc52+qkItMSe9R1W9a4k6Rp2q5SMjThb7rUSyEAZADj6ARvxc72+S5IIJAE8eX3QnIuyz19SjYokpvDonLIDleT3zC5l28MyA6/wCnLVQOed4DUxbgNZ7rKVjw87oObT35/wAHuUspHpqNMOE3tC6jKT65+RXbZr9+m1wyMnzj6LrjMQAIGgnzVJGNkJxgDvWqse1DhnYjWPmsPEjrS3I+EZrmniYMX7sx91aT9mOiy9jCSC3rie8cZ1McFzQxBcQGDq2XX2oL2lpF7EaXFrLH2lth9HqvYGD4gZm/kocaKXZ6LE190sjI2PmVHQeTI5wvOVOklJzWlr2mLxIkWkiF1w/SZhc8FwEQc9RaFtA9mwW7oRh15fX14rzWH6ZYYugv1AyJz7OfyV2tjnuaW02PJJMO3SGgQCHXib/JTI2MWyNuNaCbxAKvdEn4Q1Q51UGswbjGuDgG73BzgA5xEZFeVOw8Rm6t1s43LdmcrSwmAeGBsTfn2rFKipY+Sq6PqlWs1olzg0cSQB5rMqbepTDJqH8vujtcbeEryOG2W5xl5gcNVs4fDNbkFTyN6RxWBLbLVbaNR+R3R+XPx/wqnszmf5VtRvhRJt7LiktIrimu26j3qB9ZR0dUmTEoqL8TCKbK4ldhOmQyUzKd/tmlJk201Uxbu5cZld7PPRIxmoAUzWA/xkoaUx2+rqfd9aLbBBVo96zsThwDK1nPgKpVYH6nuWM1GRXaMo7wo8PTi2nEq1iRu5i3aFG0TBaoZ0pFXdDSYgzpqoAzdtcTe3zVjGDcMg9U55yFFVqBwzyjw4LVIlxJ8PTOdjIlTlsAb0G4UOBJgH1AVx9QWjQmUbMSKFXCkOLzlNu0wJ81DUBDd5ogtjv5euKu4h05doUTKvWDeOfcb+Sm76NqjZoP9jQDMnFpd2F7t4gfuWZUrkmeOo8Psr2OlwB4i3e0H5hZGKeWzItwXoVHNHcVW3vEcfXYqmM2hTbqDPA38F22f0fdW69R5ZTNwJhzhxPAHgt2hRw9Hq02NB4gC/acyscjrHGeKxO1z+Fr8xB3XWPbCxek2Lcacl5LnOGs3vJ5WX1eliGk5Dn2wpquz8PVEPYx2sOaDfj2qeVhxo+N7A6JPxAD3u3GH3fjdzvkF7rZnQHDU4Lm754uO8PCzfJevo4VjLNAA5KRzt2fPglt7NqK0UcHsWhTILabQRkd0COxXKjSojibdygqYtZaM7ZWxjoKnwVSRfO6oYnEgZqLDYqTOXBc2y0jfa/12kqVrlm0a4Oqsf6kBZyDiX99Vq9WFRxG0WtzKhpUq9f/AMdNxB/Eeq3xOfct7lonqPbO9fFLPxG0WtGd1u4fog9161WB8LBf9zvst3AbAw9G7aYLvid1neJy7lUcLeyJfIitdnhKGExNf/x03QfxO6rfF2fci+nwuV18MTi/kzPDh4A4/fkurKocM/X8/VU3sdlc3UuAo9e+cXGgPL1oubfZ1SRpUwc1KJPBHdVo8VxTfJPrNUCpipGVyoabzF1oPYqlZkTOlypo2+iGrR3tLQsiuSx9hbgPottlQQLR81mY9ge6At42amVqz2vZb1/PJUGU92056ax6nwTEMcx0NNjl9VIymHXJ1z+3io0Vs6ua5oGkZRPzyVxj3QJUbKZHVmRodfX3XAqEeP1WWZR3e9xIAy7FDiKgZDuB04Fdqb/nHjxXfFM3gQRHriiXs1sq4naLmNAku4cwfd71Yp4htWnJe0HVrrEHgOOqqU8DLAXmAPd7jMqHE4JzmTSLS7IibCeP2XRNJmUzZ2r0moUmxIJiAM/lJ8l5TEdKd5x3BvE5bocGjlLoPktHZfQ1rnb+IfPJv3W3/wDk4amIaxkcSJPiVraK4v7PJ4bpBXFtxuc5kExHGeAXocLtusQD7J0ciCfOFdobNDusygXRqGkjkZhaNHYWIfHUDRxcd3yz8kq/RjlFbZDgtsB4uHDkQQfA/RR4ranCVsM6KVCOtUaDpAcfMwox0Gky6o0c2tM/NOMvoh5IfZ52ptF5EZLii2tUsxr3nXdBdHbGS9xgOimHpmXA1D+b3f2ix75W6ymAIAAHACAqWP7IlnX8UfLTsXEm5ovP+0qajs6u3OhU/a77L6ei140yF8iX0fO6WAxTrNoOH6oaP7oWtg+i9Q3q1QPysEn9zvsvXIixRRks83+jMwew6FO7aYLvid1neJy7lphEVpUcm29nKIi0wIiIDwbcuYFu1TYU3PK3aqUbjC8n+Vew7OrPee1eeTPZFEtd9p9di60asNJ1JVbE1Jhvr1CmpNELL7Nrol9pKgqPJOSsjiurnWWoxlSs8RCy61hIIMKzj3iY01VVxBbYwt2aV6wD75GFFSaZ+forsxw3jytzVhu5G9J4cfBHGzbogc4301XSqGgEgy62d7cgpHN3rw7l/KtU6YjrNC5OLKTRVw1DU9qmxJDY1jSbRx5K5h8DVfG4x27r1c+/JXx0TqVY9oQxvD3nd8W810jBshzin2zzbaYqiH3byy/ntWlsjZ7Gjdo0jnJ3WkieZXsMF0cw9OOpvEauv5e75LXa0AQLK1jIl8hLqKPJ4bo5UeZqODG/C27o7ch5rcwexaNO7WAu+J3Wd4nLuWkitRSOEskpbYC5RFRAREQBERAEREAREQBERAEREAREQHgX0/aPZTHujrP/AEjIeMeas7RxgYIFzkALkngF12XSc/feCBLonk3SO0lV8XSFMzmeJ9WXlk2ke2NXR0wzD7z8zpwVtjtAP8rLZVcTc93rMqb25UpltF51aPXqAoqtcBs/wFWe+2f+VXqTH+FVmJEeIqbxhVmucTAHaeAUlzl6+670mgWBVroxkdTDiInv1TCYUMBN3Tly7Fb9mIy9Sr1DDF5a0Zn0ZW02Y2kuyLY2yDXqGSQ1t3HtmGjmvZ4XZVGnG6wSNTc+alwGDbSYGt7zqTqSrS6RjSPLObb/AEIXKIqICIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiA//Z"  alt="">
+                            <div class="card-details">
+                                <h5>
+                                    Flea & tick control
+                                </h5>
+                                <p>Like most pet owners, you probably enjoy spending quality time with your pets both indoors and out. Don’t leave them at risk for any unwelcome visits from pesky parasites like fleas and ticks.</p>
+                                <button type="button" class="btn btn-success">Edit</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="card-container"  class="card text-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz7Mt32eFoWbqYYf7-vowgM_YurdMnhQt61A&usqp=CAU"  alt="">
+                            <div class="card-details">
+                                <h5>
+                                    Deworming
+                                </h5>
+                                <p>If your pet does have a parasite problem, our veterinarians can provide you with different medications and treatments to remedy the problem and steer your pet back to good health.</p>
+                                <button type="button" class="btn btn-success">Edit</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-3">
+                        <div id="card-container" class="card text-center">
+                            <img src="https://topdogtips.com/wp-content/uploads/2015/02/Science-on-Pros-and-Cons-of-Neutering-or-Spaying-Your-Dog.jpg" alt="">
+                            <div class="card-details">
+                                <h5>
+                                    Spaying/Neutering
+                                </h5>
+                                <p>Reducing the Risk of Cancer Now spay/neuter your pet at just @Rs 4444/- onwardsThe most common cancer preventive step.Call us for Special offers and appoinments to keep your dog cancer free.</p>
+                                <button type="button" class="btn btn-success">Edit</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="card-container"  class="card text-center">
+                            <img src="https://dogsbestlife.com/wp-content/uploads/2020/05/Groomer-bathes-corgi-scaled.jpeg"  alt="">
+                            <div class="card-details">
+                                <h5>
+                                    Grooming
+                                </h5>
+                                <p>We provide the best grooming and cleaning treatment to the pets as our veterinarians are experts in the field of pet grooming and cleaning as keeping your pet clean make them stand unique.</p>
+                                
+                                <button type="button" class="btn btn-success">Edit</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div id="card-container"  class="card text-center">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0eXh1WrUq1m3UC6_n_oZ1c0L4mYfZjxXELw&usqp=CAU"  alt="">
+                            <div class="card-details">
+                                <h5>
+                                    Dental Care
+                                </h5>
+                                <p>Our veterinarians take a comprehensive, patient-centric approach to dental care, starting with a complete oral examination followed by a thorough cleaning. We offer free demo as well.</p>
+                                
+                                <button type="button" class="btn btn-success">Edit</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </main>
+
+
+        <!--========== MAIN JS ==========-->
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>

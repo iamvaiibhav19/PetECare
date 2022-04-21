@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="./index.css
+    "
+    />
+  </head>
+  <body>
+    <div id="ChangeClassId" class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form id="LoginForm" class="sign-in-form">
+            <h2 class="title">Sign in</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="email" placeholder="Email" name="email"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" name="password"/>
+            </div>
+            <input type="submit" value="Login" class="btn solid" />
+          </form>
+          <form id="RegisterForm" class="sign-up-form" onsubmit="submitForm()">
+            <h2 class="title">Sign up</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Name" name="name" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="email" placeholder="Email" name="email"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" name="password"/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Confirm Password" name="confirmPassword"/>
+            </div>
+            <input type="submit" class="btn" value="Sign up" />
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>New here ?</h3>
+            <p>Do not have access to Admin dashboard of Pet-E-Care? Click on below button to Register Yourself.</p>
+            <button id="SignUpButton" class="btn transparent" id="sign-up-btn">
+              Sign up
+            </button>
+          </div>
+          <img src="images/signup.svg" class="image" alt="" />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>One of us ?</h3>
+            <p>Simply Go to login page by pressing SIGN IN button</p>
+            <button id="SignInButton" class="btn transparent" id="sign-in-btn">
+              Sign in
+            </button>
+          </div>
+          <img src="images/signup.svg" class="image" alt="" />
+        </div>
+      </div>
+    </div>
+    <script>
+      jQuery('#RegisterForm').submit(function(e) {
+        e.preventDefault();
+        const name = jQuery('#RegisterForm input[name="name"]').val();
+        const email = jQuery('#RegisterForm input[name="email"]').val();
+        const password = jQuery('#RegisterForm input[name="password"]').val();
+        const confirmPassword = jQuery(
+          '#RegisterForm input[name="confirmPassword"]'
+        ).val();
+        if (password !== confirmPassword) {
+          alert('Password and Confirm Password does not match');
+          return;
+        }
+
+        if(name === '' || email === '' || password === '' || confirmPassword === ''){
+          alert('Please fill all the fields');
+          return;
+        }
+        console.log(name, email, password, confirmPassword);
+        
+        jQuery.ajax({
+          url: 'http://localhost:8080/api/v1/register',
+          method: 'POST',
+          //pass name email password and confirmPassword as data
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword
+          }),
+          success: function(data) {
+            // alert('User Created Successfully');
+            console.log(data, 'data');
+            // window.location.href = 'http://localhost:5500/index.html';
+
+            localStorage.setItem('token', data.token);
+            
+            if(localStorage.getItem('token')){
+              window.location.href = 'http://localhost:5500/index.html';
+            }
+
+
+          },
+          error: function(err) {
+            alert(err.responseJSON.message);
+            console.log(err);
+          },
+        });
+        
+      });
+
+      jQuery('#LoginForm').submit(function(e) {
+        e.preventDefault();
+        const email = jQuery('#LoginForm input[name="email"]').val();
+        const password = jQuery('#LoginForm input[name="password"]').val();
+        console.log(email, password);
+        jQuery.ajax({
+          url: 'http://localhost:8080/api/v1/login',
+          method: 'POST',
+          //pass name email password and confirmPassword as data
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            email: email,
+            password: password
+          }),
+          success: function(data) {
+            // alert('User Created Successfully');
+            console.log(data, 'data');
+            // window.location.href = 'http://localhost:5500/index.html';
+
+            localStorage.setItem('token', data.token);
+            
+            if(localStorage.getItem('token')){
+              window.location.href = 'http://localhost:5500/index.html';
+            }
+
+
+          },
+          error: function(err) {
+            alert(err.responseJSON.message);
+            console.log(err);
+          },
+        });
+
+      });
+    </script>
+    <script src="index.js"></script>
+  </body>
+</html>
