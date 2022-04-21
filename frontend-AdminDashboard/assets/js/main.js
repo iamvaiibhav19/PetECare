@@ -91,6 +91,6 @@ logout.addEventListener('click', ()=>{
     localStorage.removeItem('token');
     
     if(!localStorage.getItem('token')){
-        window.location.href = 'http://localhost:5500/loginSignup/index.html';
+        window.location.href = 'http://localhost:5500/frontend-AdminDashboard/loginSignup/index.html';
     }
 });
