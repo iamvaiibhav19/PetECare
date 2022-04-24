@@ -53,13 +53,62 @@
 
         <script>
 
-            // if token is not set, redirect to login page when page is loaded
+            function countContacts() {
+            fetch("http://localhost:8080/api/v1/contact/getAllContacts")
+                .then(function (response) {
+                return response.json();
+                })
+                .then(function (data) {
+                    //update the contacts counterconsole.log(data.data.contacts.length);
+
+                    document.getElementById('contacts-counter').innerHTML = data.data.contacts.length;
+
+                }) 
+            };
+
+            function countServices() {
+            fetch("http://localhost:8080/api/v1/services/getAllServices")
+                .then(function (response) {
+                return response.json();
+                })
+                .then(function (data) {
+                    console.log(data, "services");
+                    //update the services counterconsole.log(data.data.services.length);
+                    document.getElementById('services-counter').innerHTML = data.data.services.length;
+
+                }) 
+            };
+
+            function getUserDetails() {
+            fetch("http://localhost:8080/api/v1/me/" + localStorage.getItem("token"))
+                .then(function (response) {
+                return response.json();
+                })
+                .then(function (data) {
+                    console.log(data, "user");
+                    //update the services counterconsole.log(data.data.services.length);
+                    document.getElementById('name-profile').innerHTML = data.data.name;
+                    document.getElementById('email-profile').innerHTML = data.data.email;
+            }) 
+            };
 
             document.addEventListener('DOMContentLoaded', function() {
                 if(localStorage.getItem('token') == null) {
                     window.location.href = 'http://localhost:5500/frontend-AdminDashboard/loginSignup/index.html';
                 }
+                else{
+                    //onpage load call the function to get all the data
+                }
             });
+
+
+
+            countContacts();
+            countServices();
+            getUserDetails();
+
+
+            
             
         </script>  
 
@@ -123,6 +172,10 @@
                                 <i class='bx bx-bookmark nav__icon' ></i>
                                 <span class="nav__name">Services</span>
                             </a>
+                            <a href="#" id="contactsRedirect" class="nav__link">
+                                <i class='bx bx-mobile nav__icon' ></i>
+                                <span class="nav__name">Contacts</span>
+                            </a>
                         </div>
 
                         <div class="nav__items">
@@ -139,7 +192,7 @@
 
                                 <div class="nav__dropdown-collapse">
                                     <div class="nav__dropdown-content">
-                                        <a href="#" class="nav__dropdown-item">Edit Profile</a>
+                                        <a href="#" id="edit-profile" class="nav__dropdown-item">Edit Profile</a>
                                     </div>
                                 </div>
                             </div>
@@ -225,8 +278,8 @@
                       <div class="card-body">
                           <i class='bx bxs-home-heart' style="color:#ee9a1b;background-color:#FFEEEE ;"></i>
                           <span class="text">
-                            <h3 class="counter">102</h3>
-                            <p>Animals Saved</p>
+                            <h3 class="counter" id="services-counter"></h3>
+                            <p>Total Services</p>
                           </span>
                       </div>
                     </div>
@@ -248,7 +301,7 @@
                             <i class="bx bxs-group" style="background: yellow;
                             color: rgb(194, 194, 58);"></i>
                           <span class="text">
-                            <h3 class="counter">2834</h3>
+                            <h3 class="counter" id="contacts-counter" onload="countContacts()"></h3>
                             <p>Contacts Filled</p>
                           </span>
                         </div>
@@ -281,7 +334,6 @@
                 <div class="tools">
                     
                     <input type="search" class="form-control" placeholder="Search" style="width:200px">
-                    <button type="button" class="btn btn-primary">Add New</button>
                     <button type="button" class="btn btn-primary">Download CSV</button>
                 </div>
             </div>
@@ -451,7 +503,6 @@
                 <div class="tools">
                     
                     <input type="search" class="form-control" placeholder="Search" style="width:200px">
-                    <button type="button" class="btn btn-secondary">Add New</button>
                     <button type="button" class="btn btn-primary">Download CSV</button>
                 </div>
             </div>
@@ -546,7 +597,7 @@
         </section>
 
         <!--========== SERVICES ==========-->
-        <main id="services" style="height: 300vh;">
+        <main id="services" class="sercives-css">
             <div class="head-title" style="margin-bottom: 7px;">
                 <div class="left">
                   <h1>Services</h1>
@@ -671,6 +722,129 @@
                 </div>
             </div>
         </main>
+
+        <section id="contacts-details" class="bg-light p-5" style="height: 100vh;">
+            <div class="head-title" style="margin-bottom: 7px;">
+                <div class="left">
+                  <h1>Contact Details</h1>
+                  <ul class="breadcrumb">
+                    <li>
+                      <a href="#" style="color:rgb(138, 132, 132)">Dashboard</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                      <a class="active" href="#">Contact Details</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <a href="#" class="btn-download">
+                  <i class="bx bxs-cloud-download"></i>
+                  <span class="text">Download CSV</span>
+                </a> -->
+                <div class="tools">
+                    
+                    <input type="search" class="form-control" placeholder="Search" style="width:200px">
+                    <button type="button" class="btn btn-primary">Download CSV</button>
+                </div>
+            </div>
+            <div class="table-responsive" id="no-more-tables">
+                <table class="table bg-white">
+                    <thead class="bg-dark text-light">
+                        <tr id="th-style">
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Message</th>   
+                            <th>Actions</th>                   
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-title="Name">Joy</td>
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Phone Number">9876543456</td>
+                            <td data-title="Message">Testing Contacts</td>                         
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Name">Joy</td>
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Phone Number">9876543456</td>
+                            <td data-title="Message">Testing Contacts</td>                         
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Name">Joy</td>
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Phone Number">9876543456</td>
+                            <td data-title="Message">Testing Contacts</td>                         
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-title="Name">Joy</td>
+                            <td data-title="Email">abc@gmail.com</td>
+                            <td data-title="Phone Number">9876543456</td>
+                            <td data-title="Message">Testing Contacts</td>                         
+                            <td data-title="Actions">                        
+                                <div class="icons-button">
+                                    <img src="./assets/img/trash.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <section id="profile-details" class="bg-light p-5" style="height: 100vh;">
+            <div class="head-title" style="margin-bottom: 7px;">
+                <div class="left">
+                  <h1>Edit Profile</h1>
+                  <ul class="breadcrumb">
+                    <li>
+                      <a href="#" style="color:rgb(138, 132, 132)">Profile</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                      <a class="active" href="#">Edit Profile</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <a href="#" class="btn-download">
+                  <i class="bx bxs-cloud-download"></i>
+                  <span class="text">Download CSV</span>
+                </a> -->
+            </div>
+            <div class="container-profile">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" id="name-profile" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name">
+                      </div>
+                    <div class="form-group" style="margin-top: 10px;">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" id="email-profile" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    
+                    
+                    <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Edit</button>
+                  </form>
+            </div>
+        </section>
 
 
         <!--========== MAIN JS ==========-->

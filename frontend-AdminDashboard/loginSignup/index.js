@@ -1,3 +1,6 @@
+//on page load call the function
+window.onload = countContacts();
+
 var signInButton = document.getElementById("SignInButton");
 var signUpButton = document.getElementById("SignUpButton");
 signUpButton.addEventListener("click", function () {

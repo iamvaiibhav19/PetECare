@@ -38,12 +38,15 @@ const dashboardPage = document.getElementById('dashboard');
 const AppointmentPage = document.getElementById('Appointment');
 const servicesPage = document.getElementById('services');
 const petDetailsPage = document.getElementById('pet-details');
+const contactPage = document.getElementById('contacts-details');
+const profilePage = document.getElementById('profile-details');
 
 const redirectHome = document.getElementById('home');
 const appointmentButton = document.getElementById('appoinments');
 const petDetailsRedirect = document.getElementById('petDetailsRedirect');
 const servicesRedirect = document.getElementById('servicesRedirect');
-
+const contactsRedirect = document.getElementById('contactsRedirect');
+const editProfileRedirect = document.getElementById('edit-profile');
 
 
 appointmentButton.addEventListener('click', ()=>{
@@ -80,6 +83,33 @@ servicesRedirect.addEventListener('click', ()=>{
     dashboardPage.style.display = 'none';
     petDetailsPage.style.display = 'none';
     servicesPage.style.display = 'block';
+    // $('.counter').counterUp({
+    //     delay: 10,
+    //     time: 1000
+    // });
+});
+
+contactsRedirect.addEventListener('click', ()=>{
+    console.log('clicked')
+    AppointmentPage.style.display = 'none';
+    dashboardPage.style.display = 'none';
+    petDetailsPage.style.display = 'none';
+    servicesPage.style.display = 'none';
+    contactPage.style.display = 'block';
+    // $('.counter').counterUp({
+    //     delay: 10,
+    //     time: 1000
+    // });
+});
+
+editProfileRedirect.addEventListener('click', ()=>{
+    console.log('clicked')
+    AppointmentPage.style.display = 'none';
+    dashboardPage.style.display = 'none';
+    petDetailsPage.style.display = 'none';
+    servicesPage.style.display = 'none';
+    contactPage.style.display = 'none';
+    profilePage.style.display = 'block';
     // $('.counter').counterUp({
     //     delay: 10,
     //     time: 1000

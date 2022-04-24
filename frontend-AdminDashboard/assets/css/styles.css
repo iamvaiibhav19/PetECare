@@ -52,6 +52,12 @@ body {
   font-size: var(--normal-font-size);
   background-color: var(--body-color);
   color: var(--text-color);
+
+  /* //stop scroll on body */
+  /* overflow-x: hidden;
+
+  /* //stop scroll on body */
+  /* overflow-y: hidden; */
 }
 
 h3 {
@@ -86,6 +92,9 @@ img {
   justify-content: space-between;
 }
 
+.sercives-css{
+  height: 300vh;
+}
 
 
 main {
@@ -366,13 +375,28 @@ main {
 
 .tools{
   /* border: 1px solid red; */
-  width: 40%;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 
 }
+
+.tools input{
+  width: 100%;
+  position: relative;
+  right: 10px;
+  height: 36px;
+  border-radius: 25px;
+  border: 1px solid var(--dark);
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark);
+}
+
+
 
 #th-style{
   background-color: var(--first-color);
@@ -470,6 +494,27 @@ main {
   box-shadow: 0 0 20px 7px rgba(0,0,0,0.1);
 }
 
+.container-profile{
+  width: 50%;
+  border: 1px solid var(--first-color);
+  padding: 20px;
+  margin: 20px auto;
+  /* //upper border css */
+  border-top: 10px solid var(--first-color);
+  border-bottom: 10px solid var(--first-color);
+}
+
+.container-profile form button{
+  background-color: var(--first-color);
+  border-color: var(--first-color);
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: .5rem 1rem;
+  /* border-radius: .25rem; */
+  cursor: pointer;
+}
+
 
 
 /* ========== MEDIA QUERIES ==========*/
@@ -487,6 +532,16 @@ main {
   .header {
     padding: 0 3rem 0 6rem;
   }
+
+  .container-profile{
+    width: 100%;
+  }
+
+  .tools btn{
+    position: relative;
+    top: 20px;
+  }
+
   .header__container {
     height: calc(var(--header-height) + .5rem);
   }
