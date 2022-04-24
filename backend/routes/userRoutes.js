@@ -12,6 +12,7 @@ const {
   getUser,
   updateUserRole,
   deleteUser,
+  getUserByToken,
 } = require("../controllers/userController");
 const { isAuthenticatedUser, authorisedRoles } = require("../middlewares/auth");
 
@@ -23,7 +24,8 @@ router.route("/login").post(loginUser);
 // router.route("/password/forgot").post(forgotPassword);
 // router.route("/logout").get(logoutUser);
 // router.route("/password/reset/:token").put(resetPassword);
-// router.route("/me").get(isAuthenticatedUser, getUserDetails);
+router.route("/me").get(isAuthenticatedUser, getUserDetails);
+router.route("/getUserByToken/:token").get(getUserByToken);
 // router.route("/password/update").put(isAuthenticatedUser, updatePassword);
 // router.route("/me/update").put(isAuthenticatedUser, updateUserProfile);
 // router

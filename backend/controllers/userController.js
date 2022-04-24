@@ -263,3 +263,24 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     message: `User ${user.name} deleted successfully`,
   });
 });
+
+
+//get user by token 
+exports.getUserByToken = catchAsyncErrors(async (req, res, next) => {
+  
+
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User not found from id ${req.params.id}`, 404)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
+
