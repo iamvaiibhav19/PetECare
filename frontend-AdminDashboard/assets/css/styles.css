@@ -45,6 +45,10 @@
   box-sizing: border-box;
 }
 
+#jaravel{
+  margin: 10px 0;
+}
+
 body {
   margin: var(--header-height) 0 0 0;
   padding: 1rem 1rem 0;
@@ -52,6 +56,7 @@ body {
   font-size: var(--normal-font-size);
   background-color: var(--body-color);
   color: var(--text-color);
+  overflow: hidden;
 
   /* //stop scroll on body */
   /* overflow-x: hidden;
@@ -150,7 +155,7 @@ main {
 }
 
 .btn-primary {
-  background-color: #1691a7;
+  background-color: var(--first-color);
   color: var(--light);
   border-radius: 36px;
   padding: 0 16px;

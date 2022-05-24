@@ -1,0 +1,49 @@
+.css-qivjh0-MuiStepLabel-label.MuiStepLabel-alternativeLabel{
+    font-size: 2.5rem;
+}
+
+input{
+    font-size: 2.5rem;
+}
+
+Select{
+    font-size: 2.5rem;
+}
+/* SelectChangeEvent{
+    font-size: 2.5rem;
+  }
+  FormControl{
+    font-size: 2.5rem;
+  }
+  InputLabel{
+    font-size: 2.5rem;
+  }
+  MenuItem{
+    font-size: 2.5rem;
+  }
+  Typography{
+    font-size: 2.5rem;
+  }
+  TextField{
+    font-size: 2.5rem;
+  }
+  Button{
+    font-size: 2.5rem;
+  }
+  Stepper{
+    font-size: 2.5rem;
+  }
+  Step{
+    font-size: 2.5rem;
+  }
+  StepLabel{
+
+  } */
+
+  *{
+      /* font-size: 2.5rem; */
+  }
+
+  .css-117w1su-MuiStepIcon-text{
+        font-size: 2.5rem;
+  }
