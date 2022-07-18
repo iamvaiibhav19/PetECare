@@ -9,7 +9,7 @@ const Footer = () => {
   const [email, setEmail] = React.useState("");
   const handleSubmit = (e) => {
     axios
-      .post("http://localhost:8080/api/v1/mail/sendMail", {
+      .post("https://petecare.herokuapp.com/api/v1/mail/sendMail", {
         email: email,
       })
       .then((res) => {

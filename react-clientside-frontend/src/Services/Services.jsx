@@ -6,7 +6,7 @@ const Services = () => {
   const [services, setServices] = useState([]);
   const fetchServices = () => {
     axios
-      .get("http://localhost:8080/api/v1/services/getAllServices")
+      .get("https://petecare.herokuapp.com/api/v1/services/getAllServices")
       .then((data) => {
         console.log(data.data.data.services);
         setServices(data.data.data.services);

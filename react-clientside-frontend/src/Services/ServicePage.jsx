@@ -12,7 +12,9 @@ const ServicePage = () => {
 
   const fetchService = () => {
     axios
-      .get(`http://localhost:8080/api/v1/services/getServiceByTitle/${title1}`)
+      .get(
+        `https://petecare.herokuapp.com/api/v1/services/getServiceByTitle/${title1}`
+      )
       .then((data) => {
         console.log(data.data.data.service, "service");
         setService(data.data.data.service);

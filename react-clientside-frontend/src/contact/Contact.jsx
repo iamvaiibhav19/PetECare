@@ -15,7 +15,10 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8080/api/v1/contact/newContact", userContact)
+      .post(
+        "https://petecare.herokuapp.com/api/v1/contact/newContact",
+        userContact
+      )
       .then((res) => {
         if (res.status === 201) {
           Swal.fire({

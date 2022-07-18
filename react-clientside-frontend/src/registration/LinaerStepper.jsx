@@ -379,7 +379,7 @@ const LinaerStepper = () => {
 
       console.log(data);
       axios
-        .post("http://localhost:8080/api/v1/pet/registerPet", data)
+        .post("https://petecare.herokuapp.com/api/v1/pet/registerPet", data)
         .then((res) => {
           console.log(res);
           if (res) {
